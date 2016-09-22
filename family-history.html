@@ -1,38 +1,42 @@
 <!DOCTYPE html>
 <html>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<body ng-app="myApp" ng-controller="todoCtrl">
+<body ng-app="myApp" ng-controller="familyCtrl">
 
-<h2>My Todo List</h2>
+<h2>My Family History List</h2>
 
-<form ng-submit="todoAdd()">
-    <input type="text" ng-model="todoInput" size="50" placeholder="Add New">
+<form ng-submit="familyAdd()">
+    <input type="text" ng-model="personInput" size="20" placeholder="Person">
+    <input type="text" ng-model="fatherInput" size="20" placeholder="Father">
+    <input type="text" ng-model="motherInput" size="20" placeholder="Mother">
     <input type="submit" value="Add New">
 </form>
 
 <br>
 
-<div ng-repeat="x in todoList">
-    <input type="checkbox" ng-model="x.done"> <span ng-bind="x.todoText"></span>
+<div ng-repeat="x in familyList">
+    <input type="checkbox" ng-model="x.done"> <span ng-bind="x.familyText"></span>
 </div>
 
 <p><button ng-click="remove()">Remove marked</button></p>
 
 <script>
 var app = angular.module('myApp', []);
-app.controller('todoCtrl', function($scope) {
-    $scope.todoList = [{todoText:'Clean House', done:false}];
+app.controller('familyCtrl', function($scope) {
+    $scope.familyList = [{familyText:'KC, Ernest Willmore, Karen Clark', done:false}];
 
-    $scope.todoAdd = function() {
-        $scope.todoList.push({todoText:$scope.todoInput, done:false});
-        $scope.todoInput = "";
+    $scope.familyAdd = function() {
+        $scope.familyList.push({familyText:$scope.personInput + ', ' + $scope.fatherInput + ', ' + $scope.motherInput, done:false});
+        $scope.personInput = "";
+        $scope.fatherInput = "";
+        $scope.motherInput = "";
     };
 
     $scope.remove = function() {
-        var oldList = $scope.todoList;
-        $scope.todoList = [];
+        var oldList = $scope.familyList;
+        $scope.familyList = [];
         angular.forEach(oldList, function(x) {
-            if (!x.done) $scope.todoList.push(x);
+            if (!x.done) $scope.familyList.push(x);
         });
     };
 });
@@ -40,6 +44,3 @@ app.controller('todoCtrl', function($scope) {
 
 </body>
 </html>
-
-
-
